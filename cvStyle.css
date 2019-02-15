@@ -1,0 +1,84 @@
+html{
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    margin: 0px;
+    height: 100%;
+}
+
+.mainApp{
+    height: 100%;
+}
+
+h1{
+    margin-top: 0px;
+}
+
+
+.main{
+    margin-left: 25%; 
+    max-width: 50%;
+    padding-top: 40px;
+    min-height: 100%;
+}
+
+input{
+    font-family: inherit;
+    color: inherit;
+}
+ 
+textarea{
+    font-family: inherit;
+    color: inherit;
+    width: 500px;
+    height: 75px;
+}
+
+button{
+    font-family: inherit;
+    color: inherit; 
+}
+
+.capital{
+    text-transform: capitalize;
+}
+
+.info{
+    text-align: center;
+}
+
+.name input{
+    font-size: 38px; 
+    font-weight: bold;
+}
+
+h1{
+    font-size: 42px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+h2{
+    border-bottom: solid 1px;
+}
+
+.year{
+    font-size: 18px;
+    font-weight: bold;
+    width: 120px;
+    float: left;
+    text-align: left;
+    border-bottom: solid 1px;
+}
+
+.title{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    width: 500px;
+    border-bottom: solid 1px;
+}

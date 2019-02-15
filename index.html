@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="sidebarStyle.css">
+	<link rel="stylesheet" href="cvStyle.css">
+    <script src="vue.js"></script>
+    <title>Dynamisk CV</title>
+</head>
+
+<body>
+    <div id="app" class="mainApp" v-bind:style="content.mainStyle">
+        
+        <!-- Sidebar -->
+        <span class="sidebar">
+            <div class="sidebarButtons" >
+                <button type="button" @click="editMode = !editMode">Rediger</button>
+                <!-- Style opstions -->
+                <div class="styleButtons" v-if="editMode">
+                    <b>Tekstfarge:</b> <input type="color" 
+                        v-model:value="content.mainStyle.color" /></br>
+                    <b>Bakgrunnsfarge:</b> <input type="color" 
+                        v-model:value="content.mainStyle['background-color']" /></br>
+                    <b>Tittelfarge:</b> <input type="color" 
+                        v-model:value="content.titleStyle['background-color']" /></br>
+                    <b>Font:</b> 
+                    <select v-model="content.mainStyle['font-family']">
+                        <option v-for="(font, name) in content.fonts" 
+                        v-bind:value="font">{{name}}</option>
+                    </select></br></br>
+                </div>
+                
+                <button type="button" @click="save(cvLastName)">Lagre</button>
+                <button type="button" @click="saveAs">Lagre Som</button>
+                <button type="button" @click="openMenu = !openMenu">Åpne</button>
+            </div>
+            <!-- Open menu -->
+            <div class="openMenu" v-if="openMenu">
+                <template v-for="(item, key) in savedData">
+                    <button @click="loadData(key)">{{key}}</button>
+                    <span class="delete"><button @click="deleteData(key)">X</button></span>
+                </template>
+                <button @click="deleteAll()">Slett Alle</button>
+            </div>
+        </span>
+
+        <!-- Main content -->
+        <div class="main">
+            <!-- Name & personal info -->
+            <div class="info">
+                <h1 class="name" v-bind:style="content.titleStyle">
+                    <input v-if="editMode" v-model:value="content.name"></input> 
+                    <span v-else>{{content.name}}</span>
+                </h1>
+                <template v-for="(value, key) in content.personInfo">
+                    <b class="capital">{{key}}:</b>
+                    <input v-if="editMode" v-model:value="content.personInfo[key]"></input> 
+                    <span v-else>{{value}}</span> <br>
+                </template>
+            </div>
+
+            <!-- Intro text -->
+            <h2 v-bind:style="content.titleStyle">Intro</h2>
+                <textarea v-if="editMode" v-model:value="content.intro"></textarea> 
+                <span v-else>{{content.intro}}</span></h1></br>
+
+            <!-- Education and experience lists -->
+            <template v-for="(list, listName) in content.lists">
+                <h2 class="capital" v-bind:style="content.titleStyle">{{listName}}</h2></br>
+                <button v-if="editMode" @click="list.unshift(defaultListElement)">Legg til</button>
+                <button v-if="editMode" @click="list.sort(sortListElements)">Sorter</button>
+                <div>
+                <template v-for="(item, index) in list">
+                    <span class="year">
+                        <input v-if="editMode" v-model:value="item.duration"></input> 
+                        <span v-else>{{item.duration}}</span>
+                    </span><span class="title">
+                        <input v-if="editMode" v-model:value="item.title"></input> 
+                        <span v-else>{{item.title}}</span>
+                    </span>
+                    <button v-if="editMode" @click="list.splice(index,1)">Slett</button>
+                </br></br>
+                    <textarea v-if="editMode" v-model:value="item.text"></textarea> 
+                    <span v-else>{{item.text}}</span>
+                </br></br>
+                </template>
+            </template>
+
+            <!-- Other information -->
+            <h2 v-bind:style="content.titleStyle">Annet</h2>
+                <textarea v-if="editMode" v-model:value="content.other"></textarea> 
+                <span v-else>{{content.other}}</span></br>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
